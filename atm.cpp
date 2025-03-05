@@ -4,7 +4,7 @@ ATM::ATM(BankSystem& bankSystem) : bank(bankSystem), validated(false) {}
 
 bool ATM::insertCard(const string& cardNumber) {
 
-    // If current card slot is empty, insert card.
+    // If current card slot is empty, mark current card with card number.
     if (currentCard.empty()) {
         currentCard = cardNumber;
         return true;
@@ -14,7 +14,15 @@ bool ATM::insertCard(const string& cardNumber) {
 }
 
 bool ATM::enterPin(const string& pin) {
-    if (!currentCard.empty() && bank.checkPin(currentCard, pin)) {
+
+    // Make sure card has inserted.
+    if (currentCard.empty()) {
+        cout << "Please Insert card first.\n";
+        return -1;
+    }
+
+    // Communicate with bank system to check valid pin.
+    if (bank.checkPin(currentCard, pin)) {
         validated = true;
         return true;
     } else {
@@ -25,13 +33,15 @@ bool ATM::enterPin(const string& pin) {
 }
 
 bool ATM::selectAccount(const string& accountNumber) {
+     // Make sure card has inserted.
     if (currentCard.empty()) {
         cout << "Please Insert card first.\n";
         return -1;
     }
-
+    // Communicate with bank system to get specific account with accountnumber.
     BankSystem::Account* account = bank.getAccount(currentCard, accountNumber);
 
+    // Mark current account with associated accound number.
     if (account) {
         currentAccount = accountNumber;
     } else {
@@ -52,7 +62,7 @@ int ATM::viewBalance() {
         cout << "Please select account first.\n";
         return -1;
     }
-
+    // Communicate with server for remaining balance.
     return bank.viewBalance(currentCard, currentAccount);
     return 0;
 }
@@ -67,7 +77,7 @@ bool ATM::deposit(int amount) {
         cout << "Please select account first.\n";
         return -1;
     }
-
+    // Communicate with server to update balance.
     return bank.updateBalance(currentCard, currentAccount, amount);
 }
 

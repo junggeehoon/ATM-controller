@@ -12,7 +12,7 @@ BankSystem:: BankSystem() {
 bool BankSystem::checkPin(const string& cardNumber, const string& enteredPin) {
 
     // If card exists, and entered pin matches with card pin number, return true.
-    return card.count(cardNumber) && card[cardNumber] == enteredPin;
+    return card.count(cardNumber) && card[cardNumber] == enteredPin; // Normally, it would compare with the encrypted pins. 
 }
 
 // Return all the account with given card number.
@@ -28,8 +28,11 @@ vector<BankSystem::Account>* BankSystem::getAccounts(const string& cardNumber) {
 
 // Return specific account with card number and account number.
 BankSystem::Account* BankSystem::getAccount(const string& cardNumber, const string& accountNumber) {
+    
+    // Get all accounts associated with the cardnumber.
     vector<Account>* accounts = getAccounts(cardNumber);
 
+    // If account exsists, iterate until it returns specific account associated with the account number.
     if (accounts) {
         for (auto& account: *accounts) {
             if (account.accountNumber == accountNumber) {

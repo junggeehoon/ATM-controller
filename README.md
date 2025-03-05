@@ -24,13 +24,15 @@ ATM would not store actual information and needs to communicate Bank's server to
 
 So, I divided project into two parts: 1. ATM controller to interact with user. 2. Bank system to receive request from ATM and send respond.
 
+In real ATM controllers, rather than directly calling methods from bank system, ATM controller would make a API request to a server and server will handle data within a database.
+
 ### Bank System
 Each account has account number associated with, and balance remaining.
-
 Each card will be stored into map with cardnumber as key and pin number as value.
-
 Each account will be stored into map with accountNumber as key and account as value.
 
 
-
 ### ATM Controller
+ATM will communicate with the bank system (server) to retrieve information such as remaining balance.
+It has internal variables to track current card information and account number. (Similiar to token or cookie in frontend that can store information inside the browser.)
+When user inserts card and select account, it will save these data temporarily, and send request to bank system. (server)
