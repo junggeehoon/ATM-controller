@@ -44,7 +44,14 @@ BankSystem::Account* BankSystem::getAccount(const string& cardNumber, const stri
 bool BankSystem::updateBalance(const string& cardNumber, const string& accountNumber, int amount) {
     Account* account = getAccount(cardNumber, accountNumber);
 
+    // Check account exists.
     if (account) {
+        // Check for low balance.
+        if (account->balance + amount < 0) {
+            cout << "Low balance, check remaining balance.\n";
+            return false;
+        }
+        // If account has balance, update balance.
         account -> balance += amount;
         return true;
     }

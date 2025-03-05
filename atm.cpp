@@ -72,14 +72,6 @@ bool ATM::deposit(int amount) {
 }
 
 bool ATM::withdraw(int amount) {
-
-    int balance = viewBalance();
-
-    if (balance - amount < 0) {
-        cout << "Low balance.\n";
-        return false;
-    }
-
     return deposit(amount * -1);
 }
 

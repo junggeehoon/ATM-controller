@@ -4,10 +4,14 @@
 
 1. Download source files using `git clone https://github.com/junggeehoon/ATM-controller.git`
 2. Navigate to folder you downloaded.
-3. To run ATM controller, compile using gcc command.
+3. To test ATM controller, compile using gcc command.
 `g++ -std=c++11 check_atm.cpp atm.cpp bank_system.cpp -o test_atm`
-4. Run test code.
+4. Run compiled test code.
 `./test_atm`
+5. To test Bank System, compile using gcc command.
+`g++ -std=c++11 check_bankSystem.cpp bank_system.cpp -o test_bank`
+6. Run compiled test code.
+`./test_bank`
 
 
 ## Completion Log
