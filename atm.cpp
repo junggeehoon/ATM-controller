@@ -1,5 +1,7 @@
 # include "atm.h"
 
+ATM::ATM(BankSystem& bankSystem) : bank(bankSystem), validated(false) {}
+
 bool ATM::insertCard(const string& cardNumber) {
 
     // If current card slot is empty, insert card.
@@ -19,23 +21,6 @@ bool ATM::enterPin(const string& pin) {
     return false;
 }
 
-bool ATM::selectAccount(const string& accountNumber) {
-    if (!validated) return false;
-
-    auto* accounts = bank.getAccounts(currentCard);
-
-    if (accounts) {
-        for (const auto& account: *accounts) {
-            if (account.accountNumber == accountNumber) {
-                currentAccount  = accountNumber;
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
-
 int ATM::viewBalance() {
     if (currentCard.empty()) {
         cout << "Please Insert card first.";
@@ -46,14 +31,27 @@ int ATM::viewBalance() {
         cout << "Please select account first.";
         return -1;
     }
+
+    return bank.viewBalance(currentCard, currentAccount);
+    return 0;
 }
 
 bool ATM::deposit(int amount) {
-    
+    if (currentCard.empty()) {
+        cout << "Please Insert card first.";
+        return -1;
+    }
+
+    if (currentAccount.empty()) {
+        cout << "Please select account first.";
+        return -1;
+    }
+
+    return bank.updateBalance(currentCard, currentAccount, amount);
 }
 
 bool ATM::withdraw(int amount) {
-
+    return deposit(amount * -1);
 }
 
 void ATM::ejectCard() {

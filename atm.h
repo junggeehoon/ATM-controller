@@ -6,10 +6,9 @@
 class ATM {
 
 public:
-    ATM(BankSystem&, BankSystem);
+    ATM(BankSystem& BankSystem);
     bool insertCard(const string& cardNumber);
     bool enterPin(const string& pin);
-    bool selectAccount(const string& accountNumber);
     int viewBalance();
     bool deposit(int amoount);
     bool withdraw(int amount);
@@ -20,6 +19,6 @@ private:
     string currentCard;
     string currentAccount;
     bool validated;
-}
+};
 
 #endif
