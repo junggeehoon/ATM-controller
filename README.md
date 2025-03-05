@@ -18,6 +18,7 @@
 
 Generally, ATM would have some controller to control actual hardware related to the ATM. 
 This will includes reading card information from a card reader, and receiving data from keypads and touch screens.
+
 Also, it needs to communicate with the Bank system to retrieve user information. 
 Actual data would be stored into Bank's database securly with encryptions. 
 ATM would not store actual information and needs to communicate Bank's server to get/store data.
@@ -28,11 +29,15 @@ In real ATM controllers, rather than directly calling methods from bank system, 
 
 ### Bank System
 Each account has account number associated with, and balance remaining.
+
 Each card will be stored into map with cardnumber as key and pin number as value.
+
 Each account will be stored into map with accountNumber as key and account as value.
 
 
 ### ATM Controller
 ATM will communicate with the bank system (server) to retrieve information such as remaining balance.
+
 It has internal variables to track current card information and account number. (Similiar to token or cookie in frontend that can store information inside the browser.)
+
 When user inserts card and select account, it will save these data temporarily, and send request to bank system. (server)
