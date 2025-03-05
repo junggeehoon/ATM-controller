@@ -15,7 +15,7 @@ bool BankSystem::checkPin(const string& cardNumber, const string& enteredPin) {
     return card.count(cardNumber) && card[cardNumber] == enteredPin;
 }
 
-// Return all the account with card number.
+// Return all the account with given card number.
 vector<BankSystem::Account>* BankSystem::getAccounts(const string& cardNumber) {
     
     // If user acount exists, return pointer to user account.

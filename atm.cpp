@@ -17,18 +17,39 @@ bool ATM::enterPin(const string& pin) {
     if (!currentCard.empty() && bank.checkPin(currentCard, pin)) {
         validated = true;
         return true;
+    } else {
+        cout << "Invalid pin number.\n";
+        return false;
     }
+    return false;
+}
+
+bool ATM::selectAccount(const string& accountNumber) {
+    if (currentCard.empty()) {
+        cout << "Please Insert card first.\n";
+        return -1;
+    }
+
+    BankSystem::Account* account = bank.getAccount(currentCard, accountNumber);
+
+    if (account) {
+        currentAccount = accountNumber;
+    } else {
+        cout << "Invalid account number.\n";
+        return false;
+    }
+
     return false;
 }
 
 int ATM::viewBalance() {
     if (currentCard.empty()) {
-        cout << "Please Insert card first.";
+        cout << "Please Insert card first.\n";
         return -1;
     }
 
     if (currentAccount.empty()) {
-        cout << "Please select account first.";
+        cout << "Please select account first.\n";
         return -1;
     }
 
@@ -38,12 +59,12 @@ int ATM::viewBalance() {
 
 bool ATM::deposit(int amount) {
     if (currentCard.empty()) {
-        cout << "Please Insert card first.";
+        cout << "Please Insert card first.\n";
         return -1;
     }
 
     if (currentAccount.empty()) {
-        cout << "Please select account first.";
+        cout << "Please select account first.\n";
         return -1;
     }
 
@@ -51,6 +72,14 @@ bool ATM::deposit(int amount) {
 }
 
 bool ATM::withdraw(int amount) {
+
+    int balance = viewBalance();
+
+    if (balance - amount < 0) {
+        cout << "Low balance.\n";
+        return false;
+    }
+
     return deposit(amount * -1);
 }
 

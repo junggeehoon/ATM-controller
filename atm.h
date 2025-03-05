@@ -9,6 +9,7 @@ public:
     ATM(BankSystem& BankSystem);
     bool insertCard(const string& cardNumber);
     bool enterPin(const string& pin);
+    bool selectAccount(const string& accountNumber);
     int viewBalance();
     bool deposit(int amoount);
     bool withdraw(int amount);
