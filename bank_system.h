@@ -18,6 +18,8 @@ public:
     bool checkPin(const string& cardNumber, const string& pin);
     vector<Account>* getAccounts(const string& cardNumber);
     bool updateBalance(const string& cardNumber, const string& accountNumber, int amount);
+    int viewBalance(const string& cardNumber, const string& accountNumber);
+    Account* getAccount(const string& cardNumber, const string& accountNumber);
 
 private:
     unordered_map<string, string> card; // Card number, Pin

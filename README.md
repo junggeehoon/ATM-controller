@@ -15,7 +15,9 @@ So, I divided project into two parts: 1. ATM controller to interact with user. 2
 
 ### Bank System
 Each account has account number associated with, and balance remaining.
+
 Each card will be stored into map with cardnumber as key and pin number as value.
+
 Each account will be stored into map with accountNumber as key and account as value.
 
 

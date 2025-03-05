@@ -15,6 +15,7 @@ bool BankSystem::checkPin(const string& cardNumber, const string& enteredPin) {
     return card.count(cardNumber) && card[cardNumber] == enteredPin;
 }
 
+// Return all the account with card number.
 vector<BankSystem::Account>* BankSystem::getAccounts(const string& cardNumber) {
     
     // If user acount exists, return pointer to user account.
@@ -25,18 +26,34 @@ vector<BankSystem::Account>* BankSystem::getAccounts(const string& cardNumber) {
     return nullptr;
 }
 
-bool BankSystem::updateBalance(const string& cardNumber, const string& accountNumber, int amount) {
-    // Check whether user account exists in userAccounts map.
-    if (userAccounts.count(cardNumber)) {
-        // If exists, iterate through all accounts to find account that has same accountNumber.
-        for (auto& account: userAccounts[cardNumber]) {
-            // If account exists, update balance.
+// Return specific account with card number and account number.
+BankSystem::Account* BankSystem::getAccount(const string& cardNumber, const string& accountNumber) {
+    vector<Account>* accounts = getAccounts(cardNumber);
+
+    if (accounts) {
+        for (auto& account: *accounts) {
             if (account.accountNumber == accountNumber) {
-                account.balance += amount;
-                return true;
+                return &account;
             }
         }
     }
 
+    return nullptr;
+}
+
+bool BankSystem::updateBalance(const string& cardNumber, const string& accountNumber, int amount) {
+    Account* account = getAccount(cardNumber, accountNumber);
+
+    if (account) {
+        account -> balance += amount;
+        return true;
+    }
+
     return false;
+}
+
+int BankSystem::viewBalance(const string& cardNumber, const string& accountNumber) {
+    Account* account = getAccount(cardNumber, accountNumber);
+
+    return account ? account -> balance : -1;
 }
